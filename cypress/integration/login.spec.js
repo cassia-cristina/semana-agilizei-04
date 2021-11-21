@@ -13,29 +13,17 @@ describe('Twitter Clone - Login', () => {
     // -> depois de cada ou todos os testes - > afterEach / after
 
     beforeEach(() => {
-        // cy.intercept
-        // 1. RouteMatcher - mapeamento, filtro da rota
-        // 2. RouteHandler (opcional) - controlar o que a rota vai retornar (mock)
-        cy.intercept({
-            method: 'GET',
-            hostname: 'res.cloudinary.com'
-        }, {
-            statusCode: 200,
-            fixture: 'logo'
-        }).as('cloudinary');
+        cy.cloudinary();
     });
 
 
     it('Ao entrar com credenciais válidas, deve ser redirecionado para o feed', () => {
-
         cy.login();
-
         cy.visit('/');
 
         cy.get('nav ul li')
             .should('be.visible')
             .and('have.length', 6);
-
     });
 
 });
