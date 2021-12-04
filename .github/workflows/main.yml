@@ -20,11 +20,3 @@ jobs:
         with:
           build: npm run build
           start: npm start
-        
-    # upload dos vídeos gerados
-    - name: Upload videos
-      uses: actions/upload-artifact@v2.2.3
-      if: always()
-      with:
-        name: videos
-        path: cypress/videos
