@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Cypress Tests
 
 on:
   push:
@@ -8,23 +8,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  cypress-run:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2.1.5
-      with:
-        node-version: 14.x
-        
-    # instalacao das dependências
-    - run: npm install
-    
-    # execucao dos testes
-    - run: npx cypress run
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
         
     # upload dos vídeos gerados
     - name: Upload videos
